@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="ha">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GYARA AI V2</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      background: #101522;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+    header {
+      text-align: center;
+      color: #00e5a0;
+    }
+    .card {
+      background: #1c2638;
+      padding: 18px;
+      border-radius: 12px;
+      margin-top: 20px;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 13px;
+      margin-top: 12px;
+      border-radius: 8px;
+      border: none;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+    button {
+      background: #00e5a0;
+      color: #101522;
+      font-weight: bold;
+    }
+    #answer {
+      white-space: pre-wrap;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>GYARA AI V2</h1>
+    <p>Offline AI Phone Repair Assistant</p>
+  </header>
+
+  <div class="card">
+    <h3>Binciken matsalar waya</h3>
+
+    <label>Zaɓi kamfanin waya</label>
+    <select id="brand">
+      <option>TECNO</option>
+      <option>itel</option>
+      <option>Infinix</option>
+      <option>Samsung</option>
+      <option>Redmi</option>
+      <option>OPPO</option>
+      <option>vivo</option>
+      <option>Nokia</option>
+      <option>Unknown</option>
+    </select>
+
+    <label>Model ɗin waya</label>
+    <input id="model" placeholder="Misali: TECNO Spark 20">
+
+    <label>Matsalar wayar</label>
+    <input id="problem"
+      placeholder="Misali: Ba ta kunna ko tana restarting">
+
+    <button onclick="diagnose()">DUBA MATSALA</button>
+
+    <div id="answer"></div>
+  </div>
+
+  <script>
+    function diagnose() {
+      const brand = document.getElementById("brand").value;
+      const model = document.getElementById("model").value.trim();
+      const problem = document.getElementById("problem")
+        .value.trim().toLowerCase();
+      const answer = document.getElementById("answer");
+
+      if (!problem) {
+        answer.textContent = "Da fatan za ka rubuta matsalar wayar.";
+        return;
+      }
+
+      let advice = "Ka fara duba cajin waya, battery, USB port da alamun lalacewa. Kada ka yi flashing kafin ka tabbatar da model da firmware daidai.";
+
+      if (problem.includes("charge") ||
+          problem.includes("caji")) {
+        advice = "Duba charger, cable, USB port da battery. Gwada kayan caji masu kyau kafin buɗe waya.";
+      } else if (problem.includes("restart") ||
+                 problem.includes("bootloop")) {
+        advice = "Duba battery, maɓallin power da tsarin software. Ka tabbatar da bayanan mai waya kafin wani factory reset ko flashing.";
+      } else if (problem.includes("flash") ||
+                 problem.includes("firmware")) {
+        advice = "Tabbatar da cikakken model, chipset da firmware kafin flashing. Firmware mara dacewa na iya lalata tsarin boot.";
+      } else if (problem.includes("locked") ||
+                 problem.includes("kulle")) {
+        advice = "Tabbatar da mallakar waya. Yi amfani da hanyoyin dawo da account ko official service na kamfanin waya.";
+      } else if (problem.includes("dead") ||
+                 problem.includes("kunna")) {
+        advice = "Duba charger, battery connector, power button da alamun gajeriyar wuta. Kada ka yi gwajin wuta idan ba ka da kayan aikin kariya.";
+      }
+
+      answer.textContent =
+        "GYARA AI V2 - Rahoton farko\\n" +
+        "Brand: " + brand + "\\n" +
+        "Model: " + (model || "Ba a sani ba") + "\\n" +
+        "Matsala: " + problem + "\\n\\n" +
+        "Shawara: " + advice +
+        "\\n\\nWannan bincike na farko ne, ba cikakken AI ba.";
+    }
+  </script>
+</body>
+</html>
